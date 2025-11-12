@@ -55,18 +55,26 @@ class GraphColoring(GraphColoringAbstractClass):
         of the CSV file just focus on the logic
     """
     def coloring_backtracking(self, n_vertices: int, edges: List[Tuple[int]], k:int) -> Tuple[bool, Optional[List[int]]]:
-        adjacency_list = {vertex: set() for vertex in range(1, n_vertices + 1)}
-        vertex_colors = {vertex: -1 for vertex in range(1, n_vertices + 1)}
+        adjacency_list = {vertex: set() for vertex in range(1, n_vertices + 1)}  # 1 -> (2, 3), ... and so on
+        vertex_colors = {vertex: -1 for vertex in range(1, n_vertices + 1)}  # -1 for no set color
 
+        # Note: I used dicts instead of lists as it was easier to have vertex 1 at index 1
+        # Rather than a list, where it would be index 0, adding further complication
+
+        # fill the adjacency list
         for vertex1, vertex2 in edges:
             adjacency_list[vertex1].add(vertex2)
             adjacency_list[vertex2].add(vertex1)
 
+        # citation: adapted backtracking pseudocode
+        # https://codeiiest-dev.github.io/Algorithms/Backtracking/Pseudocode/Pseudocode.html
         def backtrack(vertex):
+            # solution found
             if vertex > n_vertices:
                 return True
 
             for color in range(k):
+                # check if color is valid assignment
                 valid = True
                 for neighbor_vertex in adjacency_list[vertex]:
                     if vertex_colors[neighbor_vertex] == color:
@@ -76,13 +84,14 @@ class GraphColoring(GraphColoringAbstractClass):
                     vertex_colors[vertex] = color
                     if backtrack(vertex + 1):
                         return True
-                    vertex_colors[vertex] = -1
+                    vertex_colors[vertex] = -1  # remove assignment
 
             return False
 
-        if backtrack(1):
+        if backtrack(1):  # solution found
             return True, [color for color in vertex_colors.values()]
 
+        # no solution found
         return False, []
 
     def coloring_bruteforce(self, n_vertices: int, edges: List[Tuple[int]], k:int) -> Tuple[bool, Optional[List[int]]]:
