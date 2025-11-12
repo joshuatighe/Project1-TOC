@@ -74,7 +74,7 @@ class GraphColoring(GraphColoringAbstractClass):
                 # check if color is valid assignment
                 valid = True
                 for neighbor_vertex in adjacency_list[vertex]:
-                    if vertex_colors[neighbor_vertex] == color:
+                    if vertex_colors[neighbor_vertex] == color and vertex_colors[neighbor_vertex] != -1:
                         valid = False
 
                 if valid:
@@ -85,7 +85,7 @@ class GraphColoring(GraphColoringAbstractClass):
 
             return False
 
-        if backtrack(1):  # solution found
+        if backtrack(0):  # solution found
             return True, vertex_colors
 
         # no solution found

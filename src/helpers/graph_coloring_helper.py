@@ -77,19 +77,19 @@ class GraphColoringAbstractClass(ABC):
     def run(self):
         results = []
         
-        for instance_id, k, n_vertices, edges in self.solution_instances:
+        # for instance_id, k, n_vertices, edges in self.solution_instances:
 
-            if SubProblemSelection.brute_force in self.sub_problems:
-                t0 = time.perf_counter()
-                bt_ok, bt_assign = self.coloring_bruteforce(n_vertices, edges, k)
-                bt_time = time.perf_counter() - t0
-                results.append([instance_id, n_vertices, len(edges), k,
-                        "BruteForce", "YES" if bt_ok else "NO",
-                        f"{bt_time:.6f}", str(bt_assign)])
-        
-        if SubProblemSelection.brute_force in self.sub_problems:
-            self.save_results(results, SubProblemSelection.brute_force.name)
-            results = []
+        #     if SubProblemSelection.brute_force in self.sub_problems:
+        #         t0 = time.perf_counter()
+        #         bt_ok, bt_assign = self.coloring_bruteforce(n_vertices, edges, k)
+        #         bt_time = time.perf_counter() - t0
+        #         results.append([instance_id, n_vertices, len(edges), k,
+        #                 "BruteForce", "YES" if bt_ok else "NO",
+        #                 f"{bt_time:.6f}", str(bt_assign)])
+        #
+        # if SubProblemSelection.brute_force in self.sub_problems:
+        #     self.save_results(results, SubProblemSelection.brute_force.name)
+        #     results = []
 
         for instance_id, k, n_vertices, edges in self.solution_instances:
 
