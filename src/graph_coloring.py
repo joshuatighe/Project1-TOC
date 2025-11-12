@@ -55,11 +55,8 @@ class GraphColoring(GraphColoringAbstractClass):
         of the CSV file just focus on the logic
     """
     def coloring_backtracking(self, n_vertices: int, edges: List[Tuple[int]], k:int) -> Tuple[bool, Optional[List[int]]]:
-        adjacency_list = {vertex: set() for vertex in range(1, n_vertices + 1)}  # 1 -> (2, 3), ... and so on
-        vertex_colors = {vertex: -1 for vertex in range(1, n_vertices + 1)}  # -1 for no set color
-
-        # Note: I used dicts instead of lists as it was easier to have vertex 1 at index 1
-        # Rather than a list, where it would be index 0, adding further complication
+        adjacency_list = {vertex: set() for vertex in range(n_vertices)}  # 1 -> (2, 3), ... and so on
+        vertex_colors = [-1] * n_vertices
 
         # fill the adjacency list
         for vertex1, vertex2 in edges:
@@ -70,7 +67,7 @@ class GraphColoring(GraphColoringAbstractClass):
         # https://codeiiest-dev.github.io/Algorithms/Backtracking/Pseudocode/Pseudocode.html
         def backtrack(vertex):
             # solution found
-            if vertex > n_vertices:
+            if vertex == n_vertices:
                 return True
 
             for color in range(k):
@@ -89,7 +86,7 @@ class GraphColoring(GraphColoringAbstractClass):
             return False
 
         if backtrack(1):  # solution found
-            return True, [color for color in vertex_colors.values()]
+            return True, vertex_colors
 
         # no solution found
         return False, []
