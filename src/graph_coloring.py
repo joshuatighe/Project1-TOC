@@ -92,32 +92,32 @@ class GraphColoring(GraphColoringAbstractClass):
         return False, []
 
     def coloring_bruteforce(self, n_vertices: int, edges: List[Tuple[int]], k:int) -> Tuple[bool, Optional[List[int]]]:
-        allVertices = []
+        all_vertices = []
 
         #Get all edges into a list
-        for edge in edges:
-            if edge[0] not in allVertices:
-                allVertices.append(edge[0])
-            if edge[1] not in allVertices:
-                allVertices.append(edge[1])
+        for vertex1, vertex2 in edges:
+            if vertex1 not in all_vertices:
+                all_vertices.append(vertex1)
+            if vertex2 not in all_vertices:
+                all_vertices.append(vertex2)
 
         #Try all possible map combinations
-        for combination in itertools.product(range(k), repeat=len(allVertices)): #Note: I researched itertools.product() as a way to get the Cartesian product to generate possible coloring combinations
+        for combination in itertools.product(range(k), repeat=len(all_vertices)): #Note: I researched itertools.product() as a way to get the Cartesian product to generate possible coloring combinations
             attempt = {}
-            for vertex, color in zip(allVertices, combination): #Creates a dictionary
+            for vertex, color in zip(all_vertices, combination): #Creates a dictionary
                 attempt[vertex] = color
 
             failure = 0
             #Iteration through each key and value in this attempted dictionary
             for vertex, color in attempt.items():
                 #Iteration to ensure no connecting edges have the same color
-                for edge in edges:
-                    if edge[0] == vertex:
-                        if attempt[edge[1]] == color:
+                for vertex1, vertex2 in edges:
+                    if vertex1 == vertex:
+                        if attempt[vertex2] == color:
                             failure = 1
                             break
-                    if edge[1] == vertex:
-                        if attempt[edge[0]] == color:
+                    if vertex2 == vertex:
+                        if attempt[vertex1] == color:
                             failure = 1
                             break
                 if failure == 1:
@@ -125,13 +125,13 @@ class GraphColoring(GraphColoringAbstractClass):
 
             #Return true if the attempt didn't fail
             if failure == 0:
-                returnList = []
+                return_list = []
                 for vertex, color in attempt.items():
-                    returnList.append(vertex)
-                    returnList.append(color)
-                return (True, returnList)
+                    return_list.append(vertex)
+                    return_list.append(color)
+                return True, return_list
 
-        return (False, [])
+        return False, []
 
     def coloring_simple(self, n_vertices: int, edges: List[Tuple[int]], k:int) -> Tuple[bool, Optional[List[int]]]:
         pass
