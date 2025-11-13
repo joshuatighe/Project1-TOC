@@ -127,7 +127,6 @@ class GraphColoring(GraphColoringAbstractClass):
             if failure == 0:
                 return_list = []
                 for vertex, color in attempt.items():
-                    return_list.append(vertex)
                     return_list.append(color)
                 return True, return_list
 
