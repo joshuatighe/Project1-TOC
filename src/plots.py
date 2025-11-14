@@ -1,8 +1,6 @@
 import csv
 
 import matplotlib.pyplot as plt
-from numpy.ma.core import shape
-
 
 def parse_results(csv_path):
     with open(csv_path, "r") as csv_file:
@@ -16,17 +14,17 @@ def parse_results(csv_path):
 
 def plot_results(all_results):
     bf_X = [result[6] for result in all_results[0]]
-    bf_Y = [result[3] for result in all_results[0]]
+    bf_Y = [result[1] for result in all_results[0]]
 
     bt_X = [result[6] for result in all_results[1]]
-    bt_Y = [result[3] for result in all_results[1]]
+    bt_Y = [result[1] for result in all_results[1]]
 
     plt.scatter(bf_X, bf_Y, color="red", label="Brute Force")
     plt.scatter(bt_X, bt_Y, color="green", label="Backtrack")
 
-    plt.title("K (max colors) vs. Time")
+    plt.title("# Vertices vs. Time")
     plt.xlabel("Time")
-    plt.ylabel("K (max colors)")
+    plt.ylabel("# Vertices")
 
     plt.legend()
 
