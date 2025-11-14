@@ -1,4 +1,4 @@
 instance_id,n_vertices,n_edges,k,method,colorable,time_seconds,coloring
-1,4,4,2,BackTracking,YES,0.000007,"[0, 1, 0, 1]"
-2,3,3,2,BackTracking,NO,0.000004,[]
+1,4,4,2,BackTracking,YES,0.000006,"[0, 1, 0, 1]"
+2,3,3,2,BackTracking,NO,0.000003,[]
 3,4,5,3,BackTracking,YES,0.000003,"[0, 1, 2, 1]"
