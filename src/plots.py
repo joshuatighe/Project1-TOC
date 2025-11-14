@@ -1,6 +1,8 @@
 import csv
 
 import matplotlib.pyplot as plt
+from numpy.ma.core import shape
+
 
 def parse_results(csv_path):
     with open(csv_path, "r") as csv_file:
@@ -19,13 +21,14 @@ def plot_results(all_results):
     bt_X = [result[6] for result in all_results[1]]
     bt_Y = [result[3] for result in all_results[1]]
 
-    fig, ax = plt.subplots()
-    ax.scatter(bf_X, bf_Y, color="red")
-    ax.scatter(bt_X, bt_Y, color="green")
-    ax.set_title("Size of Problem vs. Execution Time")
-    ax.set_xlabel("Time")
-    ax.set_ylabel("Number of Colors")
-    ax.grid(True)
+    plt.scatter(bf_X, bf_Y, color="red", label="Brute Force")
+    plt.scatter(bt_X, bt_Y, color="green", label="Backtrack")
+
+    plt.title("K (max colors) vs. Time")
+    plt.xlabel("Time")
+    plt.ylabel("K (max colors)")
+
+    plt.legend()
 
     plt.savefig('../results/graph_input_graph_coloring_results.png')
 
